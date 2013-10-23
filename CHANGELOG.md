@@ -5,16 +5,22 @@ Leaflet.draw Changelog
 
 An in-progress version being developed on the master branch.
 
+### Bug fixes
+
+ * Fixed issue where labels could appear blurry after zoom. 
+
 ## 0.2.0 (August 20, 2013)
 
 ### Plugin improvements
 
  * Removed need to call `showLabel` when adding a static label to the map.
  * Added support for changing the direction of the label in relation to the marker. Added auto mode that switches depending on which side of the screen you are on. (adapted from [@erictheise](https://github.com/erictheise) pull request) [#17](https://github.com/Leaflet/Leaflet.label/pull/17)
+ * Added `labelAnchor` option to `L.CircleMarker`.
 
 ### Bug fixes
 
  * Fix bug where map view hard reset did not update labels. (by [@dagjomar](https://github.com/dagjomar)). [#43](https://github.com/Leaflet/Leaflet.label/pull/43)
+ * Fix issue where non static labels would remain visible if the latlng of the marker changed.
 
 ## 0.1.4 (August 20, 2013)
 
