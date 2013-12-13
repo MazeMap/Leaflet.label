@@ -28,9 +28,14 @@ L.Label = L.Class.extend({
 		if (!this._container) {
 			this._initLayout();
 		}
-		this._updateContent();
 
 		this._pane.appendChild(this._container);
+
+		this._initInteraction();
+
+		this._update();
+
+		this.setOpacity(this.options.opacity);
 
 		map
 			.on('moveend', this._onMoveEnd, this)
@@ -43,12 +48,6 @@ L.Label = L.Class.extend({
 		if (L.Browser.touch && !this.options.noHide) {
 			L.DomEvent.on(this._container, 'click', this.close, this);
 		}
-
-		this._initInteraction();
-
-		this._update();
-
-		this.setOpacity(this.options.opacity);
 	},
 
 	onRemove: function (map) {
@@ -74,8 +73,12 @@ L.Label = L.Class.extend({
 	},
 
 	setContent: function (content) {
+		// Backup previous content and store new content
+		this._previousContent = this._content;
 		this._content = content;
-		this._update();
+
+		this._updateContent();
+
 		return this;
 	},
 
@@ -124,10 +127,14 @@ L.Label = L.Class.extend({
 	},
 
 	_updateContent: function () {
-		if (!this._content) { return; }
+		if (!this._content || !this._map || this._prevContent === this._content) {
+			return;
+		}
 
 		if (typeof this._content === 'string') {
 			this._container.innerHTML = this._content;
+
+			this._prevContent = this._content;
 
 			this._labelWidth = this._container.offsetWidth;
 		}
